@@ -1,50 +1,71 @@
-﻿
-.naNumeric
+﻿.wsCtSocialButtons
 {
-    border: 2px solid transparent;
-    background-color: [neutral-2-background-color];
-    color: [neutral-2-text-color];
-    font-family: 'Signika', sans-serif;
-    font-size: 11pt;
-    padding: 1px;
-    margin: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    border-radius: 3px;
-}
-
-.naNumeric:focus
-{
-    box-shadow: 0 0 0 2px [main-1-background-color];
-}
-
-.naNumericWrapper{
-    position:relative;
-}
-
-.naNumericWrapper .naNumeric{
-    width:100%;
-}
-
-.naNumericWrapper > span{
-    background-image: url(/file/app/1/editor/icon/decrease.svg?color1=r19g173b183);
-    background-size:11px 6px;
-    background-repeat:no-repeat;
-    background-position:0px 2px;
-    display: block;
-    width: 11px;
-    height: 50%;
     position: absolute;
-    cursor:pointer;
-    right: 8px;
+    min-width: 100%;
+    line-height: 0;
+    white-space: nowrap;
 }
 
-.naNumericWrapper > span[name=Up]{
-    top: 0;
-    transform: rotate(180deg);
+.wsCtSocialButtons .wsCtBadge
+{
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 
-.naNumericWrapper > span[name=Down]{
-    top:50%;
+.wsCtSocialButtons.wsCtBadgeCenter .wsCtBadge
+{
+    margin: 0 auto;
+}
+
+.wsCtSocialButtons.wsCtBadgeRight .wsCtBadge
+{
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.wsCtSocialButtons .wsCtBadge:last-child
+{
+    margin-bottom: 0 !important;
+}
+
+.wsCtSocialButtons:not(.wsCtBadgeLeft):not(.wsCtBadgeCenter) .wsCtBadge:last-child
+{
+    margin-right: 0 !important;
+}
+
+.wsCtSocialButtons .wsCtBadge a
+{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wsCtSocialButtons.wsCtBadgeColorSquare .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/colorsquare.png);
+}
+
+.wsCtSocialButtons.wsCtBadgeColorRound .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/colorround.png);
+}
+
+.wsCtSocialButtons.wsCtBadgeBlackSquare .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/blacksquare.png);
+}
+
+.wsCtSocialButtons.wsCtBadgeBlackRound .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/blackround.png);
+}
+
+.wsCtSocialButtons.wsCtBadgeWhiteSquare .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/whitesquare.png);
+}
+
+.wsCtSocialButtons.wsCtBadgeWhiteRound .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/whiteround.png);
 }

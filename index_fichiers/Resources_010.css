@@ -1,155 +1,50 @@
 ﻿
-.naSelect
+.naNumeric
 {
-    display: inline-block;
-    width: 100%;
-}
-
-.naSelect,
-.naSelect *,
-.naSelectList,
-.naSelectList *
-{
+    border: 2px solid transparent;
+    background-color: [neutral-2-background-color];
+    color: [neutral-2-text-color];
+    font-family: 'Signika', sans-serif;
+    font-size: 11pt;
+    padding: 1px;
+    margin: 0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    cursor: pointer;
+    border-radius: 3px;
 }
 
-.naSelectBody
+.naNumeric:focus
 {
-    display: -webkit-flex;
-    display: flex;
-    background-color: [neutral-2-background-color];
-    color: [neutral-2-text-color];
-    border: 1px solid #444;
-    font-size: 11pt;
-    font-family: 'Signika', sans-serif;
-    border-radius: 4px;
-    overflow: hidden;
-    height: 26px;
+    box-shadow: 0 0 0 2px [main-1-background-color];
 }
 
-.naSelectValue
-{
-    -ms-flex: 1;
-    -webkit-flex: 1;
-    flex: 1;
-    padding: 3px 8px;
-    white-space: nowrap;
-    -o-text-overflow: ellipsis;
-    -ms-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    overflow: hidden;
+.naNumericWrapper{
+    position:relative;
 }
 
-.naSelectOpen
-{
-    width: 20px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    margin-right: 3px;
-    background-image: url(/file/app/1/editor/icon/selector.svg?color1=r19g173b183);
-    background-size: 10px;
+.naNumericWrapper .naNumeric{
+    width:100%;
 }
 
-.naSelectList
-{
+.naNumericWrapper > span{
+    background-image: url(/file/app/1/editor/icon/decrease.svg?color1=r19g173b183);
+    background-size:11px 6px;
+    background-repeat:no-repeat;
+    background-position:0px 2px;
+    display: block;
+    width: 11px;
+    height: 50%;
     position: absolute;
-    left: 0;
+    cursor:pointer;
+    right: 8px;
+}
+
+.naNumericWrapper > span[name=Up]{
     top: 0;
-    display: none;
-    z-index: 1;
-    color: [neutral-1-background-color];
-    font-size: 11pt;
-    font-family: 'Signika', sans-serif;
-    font-weight: 300;
-    border-radius: 0 0 4px 4px;
-    overflow: hidden;
-    border: 1px solid #222;
+    transform: rotate(180deg);
 }
 
-.naSelectList.naSelectActive
-{
-    display: inline-block;
+.naNumericWrapper > span[name=Down]{
+    top:50%;
 }
-
-.naSelect.naSelectActive .naSelectBody
-{
-    border-radius: 4px 4px 0 0;
-}
-
-.naSelectOption,
-.naSelectActionOption,
-.naSelectSeparator
-{
-    background-color: [neutral-2-background-color];
-    white-space: nowrap;
-    padding: 3px 8px;
-    vertical-align: middle;
-    line-height: 24px;
-    position: relative;
-}
-
-.naSelectOption
-{
-    color: [neutral-2-text-color];
-}
-
-.naSelectActionOption
-{
-    text-transform: uppercase;
-    color: #888;
-}
-
-.naSelectSeparator 
-{
-    height: 1px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.naSelectSeparator .naSelectSeparatorLine
-{
-    overflow: hidden;
-    height: 1px;
-    background: #777;
-}
-
-.naSelectSeparator .naSelectSeparatorText 
-{
-    float: left;
-    line-height: 0px;
-    height: 1px;
-    vertical-align: middle;
-    color: #888;
-    font-weight: normal;
-    margin-right: 8px;
-    text-transform: uppercase;
-    font-size: 0.9em;
-}
-
-.naSelectOption:hover,
-.naSelectOption.hover,
-.naSelectActionOption:hover
-{
-    background-color: [main-1-background-color];
-    color: [main-1-text-color];
-}
-
-.naSelect.naSelectDisabled .naSelectValue
-{
-    color: #5c5c5c;
-}
-
-.naSelectInvalid
-{
-    border: 1px solid #ee4545 !important;
-}
-
-.naSelectOption.optionDisabled,
-.naSelectValue.optionDisabled
-{
-    color: #aaa;
-}
-
