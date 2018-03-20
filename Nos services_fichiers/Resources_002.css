@@ -1,31 +1,59 @@
 ﻿
-.wsCtTitle > h1, .wsCtTitle > h2
+.Block.Type_Button .Block_Wrapper
 {
-    text-overflow: ellipsis;
+    overflow: visible;
 }
 
-.wsCtTitle p, .wsCtTitle h1, .wsCtTitle h2
+.wsCtButton
 {
-    margin: 0;
-    font-size: 1em;
-    font-weight: normal;
+    height: 100%;
 }
 
-.wsCtTitle a
+.wsCtButtonMain
 {
-    font-weight: inherit !important;
-    font-family: inherit !important;
-    letter-spacing: inherit !important;
-    line-height: inherit !important;
-    font-size: inherit !important;
+    height: 100%;
+    overflow: visible;
 }
 
-.Block.Type_Title.wsMobile
+.wsCtButtonMain:hover
 {
-    height: auto !important;
+    opacity: 0.85;
 }
 
-.Block.Type_Title.wsMobile .Block_Wrapper
+.wsCtButtonMain .wsText
 {
-    position: initial;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.wsCtButtonMain .wsText > *
+{
+    flex: 1;
+}
+
+.wsCtButton .Circulaire
+{
+    border-radius: 100px;
+}
+
+.wsCtButton .RoundedCorner
+{
+    border-radius: 5px;
+}
+
+.wsCtButton .wsCover
+{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

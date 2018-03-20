@@ -1,34 +1,71 @@
-﻿
-.wsCtText
+﻿.wsCtSocialButtons
 {
-    padding: 0 3px;
+    position: absolute;
+    min-width: 100%;
+    line-height: 0;
+    white-space: nowrap;
 }
 
-.wsCtText > *
+.wsCtSocialButtons .wsCtBadge
 {
-    text-overflow: ellipsis;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 
-.wsCtText p
+.wsCtSocialButtons.wsCtBadgeCenter .wsCtBadge
 {
-    margin:0;
+    margin: 0 auto;
 }
 
-.wsCtText a
+.wsCtSocialButtons.wsCtBadgeRight .wsCtBadge
 {
-    font-weight: inherit !important;
-    font-family: inherit !important;
-    letter-spacing: inherit !important;
-    line-height: inherit !important;
-    font-size: inherit !important;
+    margin-left: auto;
+    margin-right: 0;
 }
 
-.Block.Type_Text.wsMobile
+.wsCtSocialButtons .wsCtBadge:last-child
 {
-    height: auto !important;
+    margin-bottom: 0 !important;
 }
 
-.Block.Type_Text.wsMobile .Block_Wrapper
+.wsCtSocialButtons:not(.wsCtBadgeLeft):not(.wsCtBadgeCenter) .wsCtBadge:last-child
 {
-    position: initial;
+    margin-right: 0 !important;
+}
+
+.wsCtSocialButtons .wsCtBadge a
+{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wsCtSocialButtons.wsCtBadgeColorSquare .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/colorsquare.png);
+}
+
+.wsCtSocialButtons.wsCtBadgeColorRound .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/colorround.png);
+}
+
+.wsCtSocialButtons.wsCtBadgeBlackSquare .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/blacksquare.png);
+}
+
+.wsCtSocialButtons.wsCtBadgeBlackRound .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/blackround.png);
+}
+
+.wsCtSocialButtons.wsCtBadgeWhiteSquare .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/whitesquare.png);
+}
+
+.wsCtSocialButtons.wsCtBadgeWhiteRound .wsCtBadge
+{
+    background-image: url(/file/app/1/content/socialbuttons/icons/whiteround.png);
 }

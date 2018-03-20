@@ -1,17 +1,20 @@
 ﻿
-.wsCtTitle > h1, .wsCtTitle > h2
+.wsCtText
+{
+    padding: 0 3px;
+}
+
+.wsCtText > *
 {
     text-overflow: ellipsis;
 }
 
-.wsCtTitle p, .wsCtTitle h1, .wsCtTitle h2
+.wsCtText p
 {
-    margin: 0;
-    font-size: 1em;
-    font-weight: normal;
+    margin:0;
 }
 
-.wsCtTitle a
+.wsCtText a
 {
     font-weight: inherit !important;
     font-family: inherit !important;
@@ -20,12 +23,12 @@
     font-size: inherit !important;
 }
 
-.Block.Type_Title.wsMobile
+.Block.Type_Text.wsMobile
 {
     height: auto !important;
 }
 
-.Block.Type_Title.wsMobile .Block_Wrapper
+.Block.Type_Text.wsMobile .Block_Wrapper
 {
     position: initial;
 }
