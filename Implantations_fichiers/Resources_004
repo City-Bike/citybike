@@ -1,0 +1,195 @@
+﻿WS.Namespace.Create('WS.ScrollBar', (function ()
+{
+    var Activate = function ()
+    {
+        if (this.enabled) this.bar.addClass("wsActivated");
+    };
+
+    var Deactivate = function ()
+    {
+        this.bar.removeClass("wsActivated");
+    };
+
+    var OnScroll = function (event, delta)
+    {
+        if (this.enabled && this.bar.is(":visible"))
+        {
+            event.stopPropagation();
+            event.preventDefault();
+            event = event.originalEvent;
+
+            if (!delta) {
+
+                if (event.wheelDelta) {
+                    delta = Math.round(event.wheelDelta / 120);
+                }
+                else {
+                    delta = Math.round(-event.detail);
+                }
+
+                delta = Math.round(-delta * this.scrollSpeed);
+            }
+
+            var offset = this.container.scrollTop();
+            offset += delta;
+            if (offset < 0) offset = 0;
+            if (offset > this.maxOffset) offset = this.maxOffset;
+            this.container.scrollTop(offset);
+            this.bar.css("top", Math.round(offset / this.maxOffset * this.barMaxOffset) + "px");
+            this.RaiseEvent("scroll", offset);
+        }
+    };
+
+    var OnDragScroll = function (event)
+    {
+        var offset = Math.round(event.pageY - event.data - this.container.offset().top);
+        var maxOffset = this.visibleHeight - this.barHeight;
+        if (offset < 0) offset = 0;
+        if (offset > maxOffset) offset = maxOffset;
+        var contentOffset = Math.round(offset / maxOffset * this.maxOffset);
+        this.container.scrollTop(contentOffset);
+        this.bar.css("top", Math.round(offset / maxOffset * this.barMaxOffset) + "px");
+        this.RaiseEvent("scroll", contentOffset);
+    };
+
+    var OnMouseDown = function (event)
+    {
+        var offset = Math.round(event.pageY - this.bar.offset().top);
+        var _me = this;
+        var onMouseMove = function (event) { OnDragScroll.call(_me, event); };
+        $("body").addClass("wsUnselectable");
+        this.bar.addClass("wsHover");
+        $(document).on("mousemove", offset, onMouseMove);
+        $(document).one("mouseup", function () { $(document).off("mousemove", onMouseMove); $("body").removeClass("wsUnselectable"); _me.bar.removeClass("wsHover"); });
+    };
+
+    var _class = function (container, autoAdjust)
+    {
+        WS.EventObject.call(this, ["scroll"]);
+
+        autoAdjust = autoAdjust === false ? false : true;
+
+        this.container = container;
+        this.track = $(document.createElement("div"));
+        this.bar = $(document.createElement("div"));
+        this.enabled = true;
+        this.containerPadding = parseInt(container.css("padding-right"));
+        this.containerScrollPadding = Math.max(this.containerPadding, 9);
+        this.TouchEvent = {};
+
+        if (getComputedStyle(container[0]).position == "static") container.css("position", "relative");
+        this.track.addClass("wsScrollTrack");
+        container.append(this.track);
+
+        this.bar.addClass("wsScrollBar");
+        container.append(this.bar);
+
+        this.Reset();
+        this.SetSpeed(33);
+
+        var _me = this;
+
+        container.on("mouseover.ScrollBar", function () { Activate.call(_me); });
+        container.on("mouseout.ScrollBar", function () { Deactivate.call(_me); });
+        container.on("mousewheel.ScrollBar DOMMouseScroll.ScrollBar", function (event) { OnScroll.call(_me, event); });
+        this.bar.on("mousedown.ScrollBar", function (event) { OnMouseDown.call(_me, event); });
+
+        container.on("touchstart", function (event) {
+            _me.TouchEvent.YStart = event.originalEvent.touches[0].clientY;
+        });
+        container.on("touchmove", function (event) {
+            var delta = _me.TouchEvent.YStart - event.originalEvent.touches[0].clientY;
+            _me.TouchEvent.YStart = event.originalEvent.touches[0].clientY;
+            OnScroll.call(_me, event, delta);
+        });
+        this.bar.on("touchstart", function (event) {
+            _me.TouchEvent.YStart = event.originalEvent.touches[0].clientY;
+        });
+        this.bar.on("touchmove", function (event) {
+            var delta = event.originalEvent.touches[0].clientY - _me.TouchEvent.YStart;
+            _me.TouchEvent.YStart = event.originalEvent.touches[0].clientY;
+            OnScroll.call(_me, event, delta);
+        });
+
+        this.autoAdjust = autoAdjust;
+        this.adjustInterval = null;
+        if (autoAdjust) this.adjustInterval = setInterval(function () { _me.Reset(); }, 250);
+    };
+
+    WS.Exts.Inherits(_class, WS.EventObject);
+
+    (function (methods)
+    {
+        methods.Reset = function ()
+        {
+            var previousVisibleHeight = this.visibleHeight;
+            var previousTotalHeight = this.totalHeight;
+
+            if (previousTotalHeight > previousVisibleHeight)
+            {
+                this.track.hide();
+                this.bar.hide();
+            }
+
+            this.visibleHeight = this.container.outerHeight();
+            this.totalHeight = this.container[0].scrollHeight;
+            if (previousTotalHeight > previousVisibleHeight)
+            {
+                this.track.show();
+                this.bar.show();
+            }
+
+            if (this.visibleHeight != previousVisibleHeight || this.totalHeight != previousTotalHeight)
+            {
+                if (this.totalHeight < this.visibleHeight) this.totalHeight = this.visibleHeight;
+                this.barHeight = Math.round(this.visibleHeight / this.totalHeight * this.visibleHeight);
+
+                this.maxOffset = this.totalHeight - this.visibleHeight;
+                this.barMaxOffset = this.totalHeight - this.barHeight;
+
+                this.track.css("height", this.totalHeight + "px");
+                this.bar.css("height", this.barHeight + "px");
+                this.bar.css({ height: this.barHeight + "px", top: Math.round(this.container.scrollTop() / this.maxOffset * this.barMaxOffset) + "px" });
+                this.track[this.visibleHeight == this.totalHeight ? "hide" : "show"]();
+                this.bar[this.visibleHeight == this.totalHeight ? "hide" : "show"]();
+                this.container.css("padding-right", this.visibleHeight == this.totalHeight ? this.containerPadding + "px" : this.containerScrollPadding + "px");
+            }
+        };
+
+        methods.Enable = function ()
+        {
+            this.enabled = true;
+        };
+
+        methods.Disable = function ()
+        {
+            this.enabled = false;
+        };
+
+        methods.SetSpeed = function (speed)
+        {
+            this.scrollSpeed = speed;
+        };
+
+        methods.SetOffset = function (offset)
+        {
+            if (offset < 0) offset = 0;
+            if (offset > this.maxOffset) offset = this.maxOffset;
+            this.container.scrollTop(offset);
+            this.bar.css("top", Math.round(offset / this.maxOffset * this.barMaxOffset) + "px");
+            this.RaiseEvent("scroll", offset);
+        };
+
+        methods.Destroy = function ()
+        {
+            if (this.adjustInterval) clearInterval(this.adjustInterval);
+            this.adjustInterval = null;
+            this.container.off("mouseover.ScrollBar mouseout.ScrollBar mousewheel.ScrollBar DOMMouseScroll.ScrollBar");
+            this.bar.off("mousedown.ScrollBar");
+            this.track.remove();
+            this.bar.remove();
+        };
+    })(_class.prototype);
+
+    return _class;
+})());
