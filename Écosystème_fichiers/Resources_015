@@ -1,0 +1,69 @@
+﻿
+WS.Namespace.Create('WS.Editor.Anchor.AnchorUI', (function ()
+{
+    // Constructor
+    var Class = function (control, element, data) {
+        // Validation
+        if (!element || element.length == 0) throw "element is null ";
+        if (!data) throw "data is null";
+
+        this.element = element;
+        this.data = data;
+        this.HtmlElements = {};
+
+        AddEventHandler.call(this);
+
+        if (control.onLoaded) control.onLoaded(this);
+
+        if (control.control) {
+            control.control.UnregisterEvent("preview_updated", EditorBindings, this);
+            control.control.RegisterEvent("preview_updated",
+                EditorBindings
+            , this);
+        }
+    };
+
+    /**
+    Binds vars to html controls.
+    **/
+    var EditorBindings = function ()
+    {
+        var dragWrapper = this.element.closest(".Block").find(".Drag_Wrapper");
+        if (dragWrapper.length > 0) {
+            var nameElement = dragWrapper.find("[name=Name]");
+            nameElement.text(this.data.Name);
+        }
+    };
+
+    /**
+    Add event handlers
+    **/
+    var AddEventHandler = function ()
+    {
+        var Me = this;
+    };
+
+    // Public Method(s)
+    (function (Methods)
+    {
+        Methods.onResize = function (width, height)
+        {
+
+        };
+
+        Methods.onResized = function (width, height)
+        {
+            EditorBindings.call(this);
+            var hash = window.location.hash;
+            if (hash.length > 0) {
+                var anchorName = hash.slice(1); // Remove "#" from hash
+                if (this.element.find("[data-id='" + anchorName + "']").length > 0) {
+                    if (window.ScrollToElement) window.ScrollToElement(this.element.find("[data-id='" + anchorName + "']"));
+                }
+            }
+        };
+
+    })(Class.prototype);
+
+    return Class;
+})());
