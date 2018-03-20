@@ -30,7 +30,7 @@
 
 .naRadioButton .naRadioButtonItem.wsChecked
 {
-    background-image: url("/file/app/1/editor/icon/radio.svg?color1=r19g173b183");
+    background-image: url(https://raw.githubusercontent.com/City-Bike/citybike/gh-pages/images/logo-citybike.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 60%;
